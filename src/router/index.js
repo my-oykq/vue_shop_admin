@@ -2,6 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 const Login = () => import("../components/login/Login.vue")
 const Home = () => import("../components/home/Home.vue")
+const Welcome = () => import("../components/welcome/Welcome.vue")
+const Users = () => import("../components/users/Users.vue")
+const Roles = () => import("../components/roles/Roles.vue")
+const Rights = () => import("../components/rights/Rights.vue")
+const Reports = () => import("../components/reports/Reports.vue")
+const Params = () => import("../components/params/Params.vue")
+const Orders = () => import("../components/orders/Orders.vue")
+const Goods = () => import("../components/goods/Goods.vue")
+const Categories = () => import("../components/categories/Categories.vue")
 
 Vue.use(VueRouter)
 
@@ -16,7 +25,47 @@ const routes = [
     },
     {
         path:'/home',
-        component:Home
+        component:Home,
+        redirect:'/welcome',
+        children:[
+            {
+              path:'/welcome',
+              component:Welcome
+            },
+            {
+              path:'/users',
+              component:Users,
+            },
+            {
+              path:'/roles',
+              component:Roles,
+            },
+            {
+              path:'/rights',
+              component:Rights,
+            },
+            {
+              path:'/reports',
+              component:Reports,
+            },
+            {
+              path:'/params',
+              component:Params,
+            },
+            {
+              path:'/orders',
+              component:Orders,
+            },
+            {
+              path:'/goods',
+              component:Goods,
+            },
+            {
+              path:'/categories',
+              component:Categories,
+            },
+
+        ]
     }
 
 ]

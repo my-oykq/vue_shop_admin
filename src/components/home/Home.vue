@@ -8,22 +8,30 @@
         <el-button type="info" size="mini" @click="handleLoginout">退出</el-button>
     </el-header>
     <el-container>
-        <el-aside width="200px">
+        <el-aside :width="isCollapse? '64px': '200px'">
+            <div class="toggle-button" @click="Toggle">|||</div>
             <!-- 左侧 -->
             <el-menu
                 background-color="#333744"
                 text-color="#fff"
                 active-text-color="#409EFF"
-                unique-opened>
+                unique-opened
+                :collapse="isCollapse"
+                :collapse-transition="false"
+                :default-active="activePath"
+                router>
                 <!-- 一级菜单 -->
-                <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
+                <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id" >
                     <!-- 一级菜单的模板区域 -->
                     <template slot="title">
                     <i :class="iconlist[item.id]"></i>
                     <span>{{item.authName}}</span>
                     </template>
                     <!-- 二级菜单 -->
-                    <el-menu-item :index="subItem.id + ''" v-for="subItem in item.children" :key="subItem.id">
+                    <el-menu-item :index="'/' + subItem.path" 
+                       v-for="subItem in item.children" 
+                       :key="subItem.id"
+                        @click="savaNavState('/' + subItem.path)">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
                             <span>{{subItem.authName}}</span>
@@ -32,9 +40,13 @@
                 </el-submenu>
             </el-menu>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+            <router-view></router-view>
+        </el-main>
     </el-container>
+    
     </el-container>
+    
 </template>
 
 <script type="text/ecmascript-6">
@@ -42,16 +54,28 @@
       data () {
           return {
               menulist:[], //左侧菜单数据
+            //   自定义图标，通过没个item.id作为标记进行渲染
               iconlist:{
                     '125': 'iconfont icon-user',
                     '103': 'iconfont icon-tijikongjian',
                     '101': 'iconfont icon-shangpin',
                     '102': 'iconfont icon-danju',
                     '145': 'iconfont icon-baobiao'
-              }
+              },
+              isCollapse:false,
+              activePath:''
           }
       },
       methods: {
+        //   把左侧菜单导航的数据保存到sessionStorage中保持激活状态
+          savaNavState( activePath ){
+              window.sessionStorage.setItem('activePath', activePath)
+              this.activePath = activePath
+          },
+        //   点击按钮进行折叠
+          Toggle(){
+              this.isCollapse = !this.isCollapse
+          },
         //   退出
           handleLoginout(){
             //   清楚sessionStorage中token
@@ -68,21 +92,29 @@
             //   成功拿到列表数据
             
             this.menulist = res.data.data
-            console.log(this.menulist)
+          
           }
-        //   const { data: res } = await this.$http.get('menus')
-        //         if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-        //         this.menulist = res.data
-        //         console.log(res)
+        
       },
       created(){
         //   调用左侧菜单列表
           this.getMenus()
+        //   取值,保持激活状态
+        this.activePath = window.sessionStorage.getItem('activePath')
       }
   }
 </script>
 
 <style scoped>
+.toggle-button{
+    background-color: #4A5064;
+    font-size: 10px;
+    line-height: 24px;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+}
 .el-menu{
     border-right: none;
 }
