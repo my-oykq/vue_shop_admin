@@ -85,7 +85,7 @@
           },
           async getMenus(){
               const res  = await this.$http.get('menus')
-              console.log(res)
+            
               
             //   如果拿到的数据不等于200(不成功)，弹框
             //   if( res.data.status !== 200) return this.$message.error(res.data.meta.msg)
