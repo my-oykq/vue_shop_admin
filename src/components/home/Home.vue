@@ -1,50 +1,50 @@
 <template>
     <el-container class="home-container">
-    <el-header>
-        <div class="home-info">
-            <img src="../../assets/timg.jpg" class="home-image" alt="">
-            <span>电商管理系统</span>
-        </div>
-        <el-button type="info" size="mini" @click="handleLoginout">退出</el-button>
-    </el-header>
-    <el-container>
-        <el-aside :width="isCollapse? '64px': '200px'">
-            <div class="toggle-button" @click="Toggle">|||</div>
-            <!-- 左侧 -->
-            <el-menu
-                background-color="#333744"
-                text-color="#fff"
-                active-text-color="#409EFF"
-                unique-opened
-                :collapse="isCollapse"
-                :collapse-transition="false"
-                :default-active="activePath"
-                router>
-                <!-- 一级菜单 -->
-                <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id" >
-                    <!-- 一级菜单的模板区域 -->
-                    <template slot="title">
-                    <i :class="iconlist[item.id]"></i>
-                    <span>{{item.authName}}</span>
-                    </template>
-                    <!-- 二级菜单 -->
-                    <el-menu-item :index="'/' + subItem.path" 
-                       v-for="subItem in item.children" 
-                       :key="subItem.id"
-                        @click="savaNavState('/' + subItem.path)">
+        <el-header>
+            <div class="home-info">
+                <img src="../../assets/timg.jpg" class="home-image" alt="">
+                <span>电商管理系统</span>
+            </div>
+            <el-button type="info" size="mini" @click="handleLoginout">退出</el-button>
+        </el-header>
+        <el-container>
+            <el-aside :width="isCollapse? '64px': '200px'">
+                <div class="toggle-button" @click="Toggle">|||</div>
+                <!-- 左侧 -->
+                <el-menu
+                    background-color="#333744"
+                    text-color="#fff"
+                    active-text-color="#409EFF"
+                    unique-opened
+                    :collapse="isCollapse"
+                    :collapse-transition="false"
+                    :default-active="activePath"
+                    router>
+                    <!-- 一级菜单 -->
+                    <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id" >
+                        <!-- 一级菜单的模板区域 -->
                         <template slot="title">
-                            <i class="el-icon-menu"></i>
-                            <span>{{subItem.authName}}</span>
+                        <i :class="iconlist[item.id]"></i>
+                        <span>{{item.authName}}</span>
                         </template>
-                    </el-menu-item>
-                </el-submenu>
-            </el-menu>
-        </el-aside>
-        <el-main>
-            <router-view></router-view>
-        </el-main>
-    </el-container>
-    
+                        <!-- 二级菜单 -->
+                        <el-menu-item :index="'/' + subItem.path" 
+                        v-for="subItem in item.children" 
+                        :key="subItem.id"
+                            @click="savaNavState('/' + subItem.path)">
+                            <template slot="title">
+                                <i class="el-icon-menu"></i>
+                                <span>{{subItem.authName}}</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
+        </el-container>
+        
     </el-container>
     
 </template>
@@ -106,6 +106,10 @@
 </script>
 
 <style scoped>
+.el-container{
+    /* 内容区的高 */
+    height: calc(100% - 60px);
+}
 .toggle-button{
     background-color: #4A5064;
     font-size: 10px;
@@ -142,6 +146,11 @@
     background-color: #373d41;
     /* 浮动 */
     display: flex;
+    /* position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0; */
     /* 左右两边分开 */
     justify-content: space-between;
     padding-left: 10px;

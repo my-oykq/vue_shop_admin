@@ -6,7 +6,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
 import axios from 'axios'
-// 挂载原型对象上，每个实例对象都能访问到
+// 挂载原型对象上添加$http方法，
+// 在调用方法的时候通过this调用this.$http.post(url)，每个实例对象都能访问到
 Vue.prototype.$http = axios
 
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
