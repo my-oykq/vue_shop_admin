@@ -25,6 +25,28 @@ Vue.use(ElementUI)
 
 Vue.component('tree-table', TreeTable)
 
+/* 
+转换时间戳，oeiginVal传的参数就是要转换的时间值：add_time
+filter(名字,callback),明智可以在需要的位置调用
+*/
+Vue.filter('dataFormat',function(oeiginVal){
+  // 得到时间
+ const dt = new Date(oeiginVal)
+//  拿到四位数的年
+ const y = dt.getFullYear()
+//  得到月份，月份从0开始，依次加1
+ const m = (dt.getMonth()  +1 + '').padStart(2 , '0')
+//  得到日
+const d = (dt.getDate() + 1 + '').padStart(2 , '0')
+// 小时
+const hh = (dt.getHours() +'').padStart(2 , '0')
+// 分
+const mm = (dt.getMinutes() +'').padStart(2 , '0')
+// 秒
+const ss = (dt.getSeconds() +'').padStart(2 , '0')
+return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
+
 new Vue({
   router,
   render: h => h(App),
