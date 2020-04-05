@@ -7,3 +7,9 @@ html,body,#app{
 .ql-editor{
     min-height: 300px;
 }
+.el-card{
+    margin-top: 20px;
+}
+.el-table{
+    margin-top: 20px;
+}
