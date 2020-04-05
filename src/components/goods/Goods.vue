@@ -75,7 +75,7 @@
        this.$message.success('获取成功')
        this.total = result.total
        this.goodslist = result.goods
-       console.log(res )
+      //  console.log(res )
       },
       // 监听改变的页码值，监听每页显示多少条数据
       handleSizeChange(newSize){
@@ -106,7 +106,7 @@
         }
         this.$message.success('删除成功')
         this.getGoodsList()
-        console.log(res)
+        
       },
       // 添加商品跳转到添加商品界面
       goAddShop(){

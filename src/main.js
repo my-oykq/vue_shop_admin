@@ -4,6 +4,13 @@ import ElementUI from 'element-ui'
 import TreeTable from 'vue-table-with-tree-grid'
 import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
+// 导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+// require styles 导入富文本编辑器对应的样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
 import axios from 'axios'
@@ -21,13 +28,14 @@ axios.interceptors.request.use(config =>{
 Vue.config.productionTip = false
 // Vue.use(TreeTable)
 Vue.use(ElementUI)
+Vue.use(VueQuillEditor)
 // 注册全局可用组件
 
 Vue.component('tree-table', TreeTable)
 
 /* 
 转换时间戳，oeiginVal传的参数就是要转换的时间值：add_time
-filter(名字,callback),明智可以在需要的位置调用
+filter(名字,callback),名字可以在需要的位置调用
 */
 Vue.filter('dataFormat',function(oeiginVal){
   // 得到时间
